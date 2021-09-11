@@ -1,17 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import Header from "./Components/Header.js";
+import Layout from "./Components/Layout.js";
+import Footer from "./Components/Footer.js";
+
+import bg1 from "./static/img/bg1.jpg"
+import bg3 from "./static/img/bg3.jpg"
+
+import React from 'react';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello world ReactJS!!!
-        </p>
-      </header>
-    </div>
-  );
+      <>
+          <Header />
+          <Layout title = "Здесь будет Покедекс" urlBg = {bg1}/>
+          <Layout title = "Переход на пляж" colorBg = "#e2e2e2"/>
+          <Layout title = "Тут Покемоны могут отдохнуть" urlBg = {bg3} colorBg = "#e2e2e2"/>
+          <Footer/>
+      </>
+    )
 }
 
 export default App;
