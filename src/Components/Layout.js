@@ -1,7 +1,10 @@
 import background from "../static/img/bg2.jpg"
 
-const Layout = ({title, descr, urlBg = false, colorBg}) => {
-  const backgr = urlBg ? {backgroundImage: `url(${urlBg})`} : {backgroundColor: colorBg};
+const Layout = ({title, descr, urlBg, colorBg}) => {
+  let backgr = {}
+  if (urlBg && !colorBg) { backgr = {backgroundImage: `url(${urlBg})` }}
+  else if (urlBg && colorBg) {  backgr = {background: "#009a63 " + `url(${urlBg})` + " center no-repeat" }}
+  else { backgr = {backgroundColor: colorBg} }
   return (
     <section style={backgr} class="root">
     <div class="wrapper">
