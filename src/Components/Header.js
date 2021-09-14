@@ -1,10 +1,11 @@
+import s from "../static/css/Header.module.css"
+
 const Header = ({title, desc}) => {
-  const ti_tle = title
-  return (<header class="root">
-    <div class="forest"></div>
-    <div class="container">
-        <h1>This is title</h1>
-        <p>This is Description!</p>
+  return (<header class={s.root}>
+    <div class={s.forest}></div>
+    <div class={s.container}>
+        <h1>{title}</h1>
+        <p>{desc}</p>
     </div>
 </header>);
 }
