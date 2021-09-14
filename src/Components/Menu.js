@@ -4,7 +4,7 @@ import cn from "classnames";
 const Menu = ({onClickMenu}) => {
   console.log(onClickMenu);
   return (
-    <div class={cn(s.menuContainer, {[s.active]: onClickMenu})}>
+    <div class={cn(s.menuContainer, {[s.active]: onClickMenu, [s.deactive]: !onClickMenu})}>
       <div class={s.overlay} />
       <div class={s.menuItems}>
         <ul>

@@ -19,7 +19,7 @@ const HomePage = ({onChangePage}) => {
   }
   return (
       <>
-          <MenuHeader />
+          <MenuHeader/>
           <Header
             onClickButton={handleClickButton}
           />
@@ -35,7 +35,7 @@ const HomePage = ({onChangePage}) => {
             colorTitle = "#FEFEFE"
             colorBg = "#e2e2e2"
           >
-                <div className = "flex">
+                <div className = {s.flex}>
                     { pokemons.map((item) => <PokemonCard key={item.id} name={item.name} values={item.values} img={item.img} id={item.id} type={item.type} />)}
                 </div>
           </Layout>
