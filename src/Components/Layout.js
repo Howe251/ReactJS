@@ -1,4 +1,5 @@
 import s from "../static/css/Layout.module.css"
+import cn from "classnames";
 
 const Layout = ({title, descr, urlBg, colorBg, children}) => {
   let backgr = {}
@@ -13,7 +14,7 @@ const Layout = ({title, descr, urlBg, colorBg, children}) => {
                 <h3>{title}</h3>
                 <span class={s.separator}></span>
             </div>
-            <div class={`${s.desc} ${s.full}`}>
+            <div class={cn(s.desc, s.full)}>
                 {children}
             </div>
         </article>
