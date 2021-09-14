@@ -1,9 +1,10 @@
-import s from "../static/css/MenuHeader.module.css";
+import s from "../static/css/Menu.module.css";
 import cn from "classnames";
 
-const Menu = () => {
+const Menu = ({onClickMenu}) => {
+  console.log(onClickMenu);
   return (
-    <div class={cn(s.menuContainer, s.active)}>
+    <div class={cn(s.menuContainer, {[s.active]: onClickMenu})}>
       <div class={s.overlay} />
       <div class={s.menuItems}>
         <ul>
