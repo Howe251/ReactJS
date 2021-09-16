@@ -1,7 +1,6 @@
 import Header from "../../Components/Header.js";
 import Layout from "../../Components/Layout.js";
 import Footer from "../../Components/Footer.js";
-import MenuHeader from "../../Components/MenuHeader.js";
 import PokemonCard from '../../Components/PokemonCard.js';
 
 import bg1 from "../../static/img/bg1.jpg";
@@ -12,17 +11,10 @@ import s from "./style.module.css"
 
 import React from 'react';
 
-const HomePage = ({onChangePage}) => {
-  const handleClickButton = (page) => {
-    console.log('####: <HomePage />');
-    onChangePage && onChangePage('game');
-  }
+const HomePage = () => {
   return (
       <>
-          <MenuHeader/>
-          <Header
-            onClickButton={handleClickButton}
-          />
+          <Header />
           <Layout
             title = "Описание игры"
             urlBg = {bg1}
@@ -44,7 +36,6 @@ const HomePage = ({onChangePage}) => {
           urlBg = {bg3}
           colorBg = "#e2e2e2"
           />
-          <Footer/>
       </>
     )
 }
