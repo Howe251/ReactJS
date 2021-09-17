@@ -5,13 +5,23 @@ import PokemonCard from '../../Components/PokemonCard.js';
 
 import bg1 from "../../static/img/bg1.jpg";
 import bg3 from "../../static/img/bg3.jpg";
+import {useState} from 'react';
 
 import pokemons from "../../Components/pokemons.json";
-import s from "./style.module.css"
+import s from "./style.module.css";
 
 import React from 'react';
 
 const HomePage = () => {
+  const [pokeActive, setPokeActive] = useState(pokemons);
+
+  const PokeClick = (id) => {
+    setPokeActive(pokemons.map(item => {
+        if (item.id === id){
+          item.active = !item.active;
+        }
+        return item;
+      }))}
   return (
       <>
           <Header />
@@ -27,9 +37,18 @@ const HomePage = () => {
             colorTitle = "#FEFEFE"
             colorBg = "#e2e2e2"
           >
-                <div className = {s.flex}>
-                    { pokemons.map((item) => <PokemonCard key={item.id} name={item.name} values={item.values} img={item.img} id={item.id} type={item.type} />)}
-                </div>
+            <div className = {s.flex}>
+                {pokemons.map(item =>
+                  <PokemonCard
+                    key={item.id}
+                    name={item.name}
+                    values={item.values}
+                    img={item.img}
+                    id={item.id}
+                    type={item.type}
+                    isActive={item.active}
+                    onClickCard={PokeClick}/>)}
+            </div>
           </Layout>
           <Layout
           title = "Тут Покемоны могут отдохнуть"

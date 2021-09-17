@@ -5,7 +5,8 @@ import {Link} from 'react-router-dom'
 const Menu = ({onClickMenu, menuClicked}) => {
   const MENU = [{"title": "Home","to": "/"},
                 {"title": "Game","to": "/game"},
-                {"title": "About","to": "/about"}]
+                {"title": "About","to": "/about"},
+                {"title": "Contact","to": "/contact"}]
 
   const clickHandler = () => {
     onClickMenu && onClickMenu();

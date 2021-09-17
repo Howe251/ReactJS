@@ -1,4 +1,4 @@
-const About = ({onChangePage}) => {
+const About = () => {
   return (
     <div>
       This is page About!!!

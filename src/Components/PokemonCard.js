@@ -5,7 +5,6 @@ import {useState} from 'react';
 import cardBackSide from "../static/img/card-back-side.jpg";
 
 const PokemonCard = ({name, img, id, type, values, isActive, onClickCard}) => {
-
   const clickHandler = () => {
     onClickCard && onClickCard(id);
   }
