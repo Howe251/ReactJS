@@ -18,7 +18,11 @@ const GamePage = () => {
   }, [])
 
   const history = useHistory();
-  const handleClickButton = () => {
+  const handleClickHome = () => {
+    history.push("/")
+  }
+  
+  const handleClickAddNew = () => {
     const Poke = Object.entries(pokeActive)
     const PokeToSave = Poke[1]
     console.log(PokeToSave)
@@ -67,7 +71,7 @@ const GamePage = () => {
 
   return (
     <>
-    <button onClick={handleClickButton}>
+    <button onClick={handleClickAddNew}>
       Добавить покемона
     </button>
     <div onClick={PokeClick} className={s.flex}>
@@ -84,6 +88,9 @@ const GamePage = () => {
     <div>
       <p>Это страница игры!!!</p>
     </div>
+    <button onClick={handleClickHome}>
+      Домой
+    </button>
     </>
   )
 }
