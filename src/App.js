@@ -9,10 +9,20 @@ import {useRouteMatch, Route, Switch, Redirect} from 'react-router-dom';
 import cn from 'classnames';
 
 import s from "./App.module.css"
+import {FirebaseContext} from "./context/firebaseContext";
+import Firebase from "./service/firebase"
+import {useState} from 'react';
 
 const App = () => {
   const match = useRouteMatch('/');
+  const [theme, setTheme] = useState('light');
+
+  const handlerChangeTheme = (val) => {
+    setTheme(val)
+  }
+
   return(
+      <FirebaseContext.Provider value={new Firebase()}>
       <Switch>
         <Route path="/404" component={NotFound} />
         <Route>
@@ -34,6 +44,7 @@ const App = () => {
           </>
         </Route>
       </Switch>
+      </FirebaseContext.Provider >
   )
 }
 
