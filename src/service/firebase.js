@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, onValue} from "firebase/database";
+import firebase from "firebase/compat/app"
+import database from "firebase/compat/database"
 
 const firebaseConfig = {
   apiKey: "AIzaSyA8jE0Z93s83gbTHSAbAsIDqO18VLTNFmM",
@@ -11,7 +11,41 @@ const firebaseConfig = {
   appId: "1:534681325388:web:2010a1bac6425159ac09e9"
 };
 
-const firebase = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig)
 
-const database = getDatabase();
-export default database
+class Firebase {
+  constructor() {
+      this.fire = firebase
+      this.database = this.fire.database()
+  }
+
+  getPokemonsSocket = (callback) => {
+    this.database.ref('pokemons').on('value', (snapshot) => {
+      callback(snapshot.val());
+    })
+  }
+
+  offPokemonsSocket = () => {
+    this.database.ref('pokemons').off()
+  }
+
+  getPokemonsOnce = async () => {
+    return await this.database.ref('pokemons').once('value').then(snapshot => snapshot.val());
+  }
+
+  postPokemon = (key, pokemon) => {
+    this.database.ref(`pokemons/${key}`).set(pokemon)
+  }
+
+  addPokemon = (pokeToSave) => {
+    console.log("###poketoSave",pokeToSave)
+    const newKey = this.database.ref().child("pokemons").push().key
+    console.log(newKey)
+    const newID = Date.now()
+    pokeToSave[0] = newKey
+    pokeToSave[1].id = newID
+    this.database.ref('pokemons/'+newKey).set(pokeToSave[1]);
+  }
+}
+
+export default Firebase
