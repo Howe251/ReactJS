@@ -6,8 +6,8 @@ button {
   margin-bottom: 40px;
 }
 
-.card {
-  width: 300px;
+.flex {
+  width: 100%;
   height: 380px;
   cursor: pointer;
   display: flex;

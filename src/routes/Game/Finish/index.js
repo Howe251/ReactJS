@@ -12,10 +12,9 @@ const FinishPage = () => {
   return (
     <>
     <h1>Твои карты</h1>
-    <div>
+    <div className={s.flex}>
     {Object.values(pokemon).map(item =>
       <PokemonCard
-        className={s.card}
         key={item.id}
         name={item.name}
         values={item.values}
@@ -27,7 +26,7 @@ const FinishPage = () => {
         />)}
     </div>
     <h1>Карты противника</h1>
-    <div>
+    <div className={s.flex}>
     {cardsPlayer2.map(item =>
       <PokemonCard
         className={s.card}
@@ -41,6 +40,9 @@ const FinishPage = () => {
         isActive
         />)}
     </div>
+    <button>
+      Закончить игру
+    </button>
     </>
   )
 }
