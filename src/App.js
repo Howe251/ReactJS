@@ -5,7 +5,7 @@ import Contact from './routes/Contact'
 import NotFound from './routes/NotFound'
 import MenuHeader from './Components/MenuHeader'
 import Footer from './Components/Footer'
-import {useRouteMatch, Route, Switch, Redirect} from 'react-router-dom';
+import {useLocation, Route, Switch, Redirect} from 'react-router-dom';
 import cn from 'classnames';
 
 import s from "./App.module.css"
@@ -14,7 +14,8 @@ import Firebase from "./service/firebase"
 import {useState} from 'react';
 
 const App = () => {
-  const match = useRouteMatch('/');
+  const location = useLocation('/');
+  const isPadding = location.pathname === '/' || location.pathname === '/game/board';
   const [theme, setTheme] = useState('light');
 
   const handlerChangeTheme = (val) => {
@@ -27,8 +28,8 @@ const App = () => {
         <Route path="/404" component={NotFound} />
         <Route>
           <>
-            <MenuHeader bgActive={!match.isExact}/>
-            <div className={cn(s.wrap, {[s.isHomePage]: match.isExact})}>
+            <MenuHeader bgActive={!isPadding}/>
+            <div className={cn(s.wrap, {[s.isHomePage]: isPadding})}>
               <Switch>
                 <Route path="/" exact component={HomePage} />
                 <Route path="/home" component={HomePage} />

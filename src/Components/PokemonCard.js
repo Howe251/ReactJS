@@ -9,12 +9,11 @@ const PokemonCard = ({name, img, id, type, values, isActive, isSelected, onClick
     onClickCard && onClickCard(id);
   }
   return(
-    <div className={cn(className, s.pokemonCard,
-        {
-          [s.active]: isActive,
-          [s.selected]: isSelected,
-        })}
-        onClick={clickHandler}
+    <div className={cn(className, s.pokemonCard,{
+        [s.active]: isActive,
+        [s.selected]: isSelected
+      })}
+         onClick={clickHandler}
     >
       <div className={s.cardFront}>
         <div className={cn(s.wrap, s.front)}>
