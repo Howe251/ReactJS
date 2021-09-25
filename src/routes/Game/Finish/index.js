@@ -12,7 +12,7 @@ let cardTosave = []
 
 const FinishPage = () => {
   const history = useHistory();
-  const {pokemon, cardsPlayer2, win} = useContext(PokemonContext)
+  const {pokemon, cardsPlayer2, win, clearContext} = useContext(PokemonContext)
   const firebase = useContext(FirebaseContext)
   const [cdsPlayer2, setCdsPlayer2] = useState(cardsPlayer2)
 
@@ -30,19 +30,20 @@ const FinishPage = () => {
 
   const handleClickButton = () => {
     console.log(win);
-    if (win && cardTosave) {
+    if (win && cardTosave.id != null) {
       cardTosave["selected"] = false
       firebase.addPokemon(cardTosave)
     }
     else if (!win) {
       alert("К сожалению Вы проиграли. Попробуйте еще раз")
     }
+    clearContext()
     history.push("/game")
   }
 
-  //if (cardsPlayer2.length === 0) {
-    //history.replace('/game')
-  //}
+  if (cardsPlayer2.length === 0) {
+    history.replace('/game')
+  }
   console.log("cdsPlayer22", cdsPlayer2);
   return (
     <>

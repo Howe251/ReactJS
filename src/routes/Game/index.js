@@ -26,6 +26,10 @@ const GamePage = () => {
       })
     }
 
+    const clearContextPoke = () => {
+      return setSelectedPokemons({})
+    }
+
     const getPlayer2Cards = (player2) => {
       console.log("### pl2", player2);
       return setPlayer2Cards(prevState => prevState = [...player2])
@@ -35,6 +39,7 @@ const GamePage = () => {
       <PokemonContext.Provider value={{
         cardsPlayer2: player2Cards,
         pokemon: selectedPokemons,
+        clearContext: clearContextPoke,
         onSelectedPokemons: handlePokeSelected,
         onSetPlayer2: getPlayer2Cards,
         onSetWin: setWin,

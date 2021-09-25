@@ -13,7 +13,7 @@ const StartPage = () => {
   const history = useHistory();
   const firebase = useContext(FirebaseContext)
   const pokemonContext = useContext(PokemonContext)
-  const [pokeActive, setPokeActive] = useState({}).slice(0,5);
+  const [pokeActive, setPokeActive] = useState({});
 
   useEffect(() => {
     firebase.getPokemonsSocket((pokemons) => {

@@ -49,7 +49,6 @@ const BoardPage = () => {
         possession: 'red',
       }))
     })
-    
   }, [])
 
   console.log(board)
@@ -112,9 +111,9 @@ const BoardPage = () => {
     }
   }, [steps])
 
-  //if (Object.keys(pokemons["pokemon"]).length === 0) {
-    //history.replace('/game')
-  //}
+  if (Object.keys(pokemons["pokemon"]).length === 0) {
+    history.replace('/game')
+  }
     return (
         <div className={s.root}>
 						<div className={s.playerOne}>
