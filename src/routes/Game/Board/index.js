@@ -49,6 +49,7 @@ const BoardPage = () => {
         possession: 'red',
       }))
     })
+    
   }, [])
 
   console.log(board)
@@ -101,6 +102,7 @@ const BoardPage = () => {
       console.log(count2);
       if (count1 > count2) {
         alert("ПОБЕДА")
+        pokemons.onSetWin(true)
       } else if (count1 < count2) {
         alert("ПРОИГРЫШ")
       } else {

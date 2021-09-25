@@ -38,13 +38,8 @@ class Firebase {
   }
 
   addPokemon = (pokeToSave) => {
-    console.log("###poketoSave",pokeToSave)
     const newKey = this.database.ref().child("pokemons").push().key
-    console.log(newKey)
-    const newID = Date.now()
-    pokeToSave[0] = newKey
-    pokeToSave[1].id = newID
-    this.database.ref('pokemons/'+newKey).set(pokeToSave[1]);
+    this.database.ref('pokemons/'+newKey).set(pokeToSave);
   }
 }
 
