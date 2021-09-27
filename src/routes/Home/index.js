@@ -1,6 +1,5 @@
 import Header from "../../Components/Header.js";
 import Layout from "../../Components/Layout.js";
-import Footer from "../../Components/Footer.js";
 import PokemonCard from '../../Components/PokemonCard.js';
 
 import bg1 from "../../static/img/bg1.jpg";

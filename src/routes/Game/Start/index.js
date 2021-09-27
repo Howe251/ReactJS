@@ -7,14 +7,12 @@ import PokemonContext from "../../../context/pokemonContext"
 
 import s from "./style.module.css"
 
-import {set, ref, push, child, onValue} from "firebase/database"
 import database from "../../../service/firebase"
 
 const StartPage = () => {
   const history = useHistory();
   const firebase = useContext(FirebaseContext)
   const pokemonContext = useContext(PokemonContext)
-  console.log("####1", pokemonContext);
   const [pokeActive, setPokeActive] = useState({});
 
   useEffect(() => {
