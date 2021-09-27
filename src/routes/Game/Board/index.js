@@ -54,8 +54,6 @@ const BoardPage = () => {
   console.log(board)
 
   const handleClickBoardPlate = async (position) => {
-    console.log("### position", position)
-    console.log("### card", chosenCard);
     if (chosenCard) {
       const params = {
         position,
@@ -75,18 +73,19 @@ const BoardPage = () => {
       console.log("### request", request.data);
       if (chosenCard.player === 1) {
         setPlayer1(prevState => prevState.filter(item => item.id !== chosenCard.id));
+        pokemons.onSetTurn(2)
       }
 
       if (chosenCard.player === 2) {
-        console.log("### pl2 cards", player2);
         if (player2.length === 5) {
             pokemons.onSetPlayer2(player2)
         }
         setPlayer2(prevState => prevState.filter(item => item.id !== chosenCard.id));
+        pokemons.onSetTurn(1)
       }
 
       setBoard(request.data)
-
+      setChosenCard({})
       setSteps(prevState => {
         const count = prevState + 1
         return count
@@ -107,7 +106,7 @@ const BoardPage = () => {
       } else {
         alert("НИЧЬЯ")
       }
-      history.push('/game/finish')
+      history.replace('/game/finish')
     }
   }, [steps])
 

@@ -10,6 +10,7 @@ const GamePage = () => {
     const [selectedPokemons, setSelectedPokemons] = useState({})
     const [player2Cards, setPlayer2Cards] = useState([])
     const [win, setWin] = useState(false)
+    const [turn, setTurn] = useState(1)
     const match = useRouteMatch();
     const handlePokeSelected = (key, pokemon) => {
       setSelectedPokemons(prevState => {
@@ -40,6 +41,8 @@ const GamePage = () => {
         cardsPlayer2: player2Cards,
         pokemon: selectedPokemons,
         clearContext: clearContextPoke,
+        turn: turn,
+        onSetTurn: setTurn,
         onSelectedPokemons: handlePokeSelected,
         onSetPlayer2: getPlayer2Cards,
         onSetWin: setWin,

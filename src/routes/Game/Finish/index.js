@@ -33,12 +33,17 @@ const FinishPage = () => {
     if (win && cardTosave.id != null) {
       cardTosave["selected"] = false
       firebase.addPokemon(cardTosave)
+      clearContext()
+      history.push("/game")
+    }
+    else if (win && cardTosave.id == null) {
+      alert("Выберите карту")
     }
     else if (!win) {
       alert("К сожалению Вы проиграли. Попробуйте еще раз")
+      clearContext()
+      history.push("/game")
     }
-    clearContext()
-    history.push("/game")
   }
 
   if (cardsPlayer2.length === 0) {
