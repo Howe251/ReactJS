@@ -5,6 +5,9 @@ import PlayerBoard from "./component/playerBoard"
 import {useContext, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom'
 
+import {useSelector, useDispatch} from 'react-redux'
+import {getPokemonsAsync, selectPokemonsData, selectPokemonsLoading, plTurn, selectedPokemons} from '../../../store/pokemons'
+
 const countWin = (board, player1, player2) => {
   let player1Count = player1.length;
   let player2Count = player2.length;
@@ -21,15 +24,26 @@ const countWin = (board, player1, player2) => {
 }
 
 const BoardPage = () => {
+  const chosenPokemons = useSelector(selectedPokemons)
   const pokemons = useContext(PokemonContext)
+
+  const pokemonsRedux = useSelector(selectPokemonsData)
+  const dispatch = useDispatch()
 
   const [board, setBoard] = useState([])
   const [player1, setPlayer1] = useState(() => {
-    return Object.values(pokemons["pokemon"]).map(item => ({
-      ...item,
-      possession: 'blue',
-    }))
+    return Object.values(chosenPokemons).map(item => ({
+        ...item,
+        possession: 'blue',
+      }))
   })
+  // const [player1, setPlayer1] = useState(() => {
+  //   return Object.values(pokemons["pokemon"]).map(item => ({
+  //     ...item,
+  //     possession: 'blue',
+  //   }))
+  // })
+
   const [player2, setPlayer2] = useState([])
   const [chosenCard, setChosenCard] = useState(null)
   const [steps, setSteps] = useState(0)
@@ -73,7 +87,8 @@ const BoardPage = () => {
       console.log("### request", request.data);
       if (chosenCard.player === 1) {
         setPlayer1(prevState => prevState.filter(item => item.id !== chosenCard.id));
-        pokemons.onSetTurn(2)
+        dispatch(plTurn(2))
+        //pokemons.onSetTurn(2)
       }
 
       if (chosenCard.player === 2) {
@@ -110,7 +125,7 @@ const BoardPage = () => {
     }
   }, [steps])
 
-  if (Object.keys(pokemons["pokemon"]).length === 0) {
+  if (Object.keys(chosenPokemons).length === 0) {
     history.replace('/game')
   }
     return (
