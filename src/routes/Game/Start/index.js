@@ -3,7 +3,6 @@ import PokemonCard from "../../../Components/PokemonCard"
 import {useState, useEffect, useContext} from 'react';
 
 import FirebaseContext from "../../../context/firebaseContext"
-import PokemonContext from "../../../context/pokemonContext"
 
 import s from "./style.module.css"
 
@@ -15,10 +14,8 @@ import {selectedPokemons, getPokemonsAsync, selectPokemonsData, selectPokemonsLo
 const StartPage = () => {
   const history = useHistory();
   const firebase = useContext(FirebaseContext)
-  //const pokemonContext = useContext(PokemonContext)
   const pokemonsRedux = useSelector(selectPokemonsData)
   const chosenPokemons = useSelector(selectedPokemons)
-  //console.log('#### pokeRedux', pokemonsRedux);
   const dispatch = useDispatch()
   const [pokeActive, setPokeActive] = useState({});
 

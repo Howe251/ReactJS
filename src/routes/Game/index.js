@@ -3,7 +3,6 @@ import {useState} from "react"
 import StartPage from "./Start"
 import BoardPage from "./Board"
 import FinishPage from "./Finish"
-import {PokemonContext} from "../../context/pokemonContext"
 
 
 const GamePage = () => {
@@ -37,23 +36,11 @@ const GamePage = () => {
     }
 
     return (
-      <PokemonContext.Provider value={{
-        cardsPlayer2: player2Cards,
-        pokemon: selectedPokemons,
-        clearContext: clearContextPoke,
-        turn: turn,
-        onSetTurn: setTurn,
-        onSelectedPokemons: handlePokeSelected,
-        onSetPlayer2: getPlayer2Cards,
-        onSetWin: setWin,
-        win:win
-      }}>
         <Switch>
             <Route path={`${match.path}/`} exact component={StartPage} />
             <Route path={`${match.path}/board`} component={BoardPage} />
             <Route path={`${match.path}/finish`} component={FinishPage} />
         </Switch>
-      </PokemonContext.Provider>
     );
 };
 

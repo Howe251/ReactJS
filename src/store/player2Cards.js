@@ -6,11 +6,11 @@ export const slice = createSlice({
     data: {},
   },
   reducers: {
-    addPokemons: (state, action) => ({
+    addPL2Pokemons: (state, action) => ({
       ...state,
       data: action.payload
     }),
-    removePokemons: (state) => ({
+    removePL2Pokemons: (state) => ({
       ...state,
       data: {}
     })

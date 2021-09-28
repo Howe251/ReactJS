@@ -1,11 +1,14 @@
 import PokemonCard from "../../../../../Components/PokemonCard"
-import PokemonContext from "../../../../../context/pokemonContext"
 import cn from "classnames"
-import {useState, useContext} from "react"
+import {useState} from "react"
 import s from "./style.module.css"
 
+import {getTurn} from '../../../../../store/pokemons'
+import {useSelector} from 'react-redux'
+
 const PlayerBoard = ({ player, cards, onClickCard }) => {
-  const {turn} = useContext(PokemonContext)
+  const turn = useSelector(getTurn)
+  console.log(turn);
   const [selected, setSelected] = useState(null)
   return (
     <>

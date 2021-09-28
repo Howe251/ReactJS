@@ -1,12 +1,12 @@
 import s from './style.module.css';
-import PokemonContext from "../../../context/pokemonContext"
 import PokemonCard from "../../../Components/PokemonCard"
 import PlayerBoard from "./component/playerBoard"
-import {useContext, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom'
 
 import {useSelector, useDispatch} from 'react-redux'
-import {getPokemonsAsync, selectPokemonsData, selectPokemonsLoading, plTurn, selectedPokemons} from '../../../store/pokemons'
+import {getPokemonsAsync, selectPokemonsData, selectPokemonsLoading, setTurn, selectedPokemons, getWin, setWin} from '../../../store/pokemons'
+import {addPL2Pokemons, selectPl2Data} from '../../../store/player2Cards'
 
 const countWin = (board, player1, player2) => {
   let player1Count = player1.length;
@@ -25,10 +25,12 @@ const countWin = (board, player1, player2) => {
 
 const BoardPage = () => {
   const chosenPokemons = useSelector(selectedPokemons)
-  const pokemons = useContext(PokemonContext)
-
-  const pokemonsRedux = useSelector(selectPokemonsData)
+  const win = useSelector(getWin)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setTurn(Math.round(Math.random()*(2-1)+1)))
+  }, [])
 
   const [board, setBoard] = useState([])
   const [player1, setPlayer1] = useState(() => {
@@ -37,12 +39,6 @@ const BoardPage = () => {
         possession: 'blue',
       }))
   })
-  // const [player1, setPlayer1] = useState(() => {
-  //   return Object.values(pokemons["pokemon"]).map(item => ({
-  //     ...item,
-  //     possession: 'blue',
-  //   }))
-  // })
 
   const [player2, setPlayer2] = useState([])
   const [chosenCard, setChosenCard] = useState(null)
@@ -87,16 +83,15 @@ const BoardPage = () => {
       console.log("### request", request.data);
       if (chosenCard.player === 1) {
         setPlayer1(prevState => prevState.filter(item => item.id !== chosenCard.id));
-        dispatch(plTurn(2))
-        //pokemons.onSetTurn(2)
+        dispatch(setTurn(2))
       }
 
       if (chosenCard.player === 2) {
         if (player2.length === 5) {
-            pokemons.onSetPlayer2(player2)
+            dispatch(addPL2Pokemons(player2))
         }
         setPlayer2(prevState => prevState.filter(item => item.id !== chosenCard.id));
-        pokemons.onSetTurn(1)
+        dispatch(setTurn(1))
       }
 
       setBoard(request.data)
@@ -115,7 +110,7 @@ const BoardPage = () => {
       console.log(count2);
       if (count1 > count2) {
         alert("ПОБЕДА")
-        pokemons.onSetWin(true)
+        dispatch(setWin(true))
       } else if (count1 < count2) {
         alert("ПРОИГРЫШ")
       } else {
