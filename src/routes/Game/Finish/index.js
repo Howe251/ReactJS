@@ -1,15 +1,13 @@
-import FirebaseContext from "../../../context/firebaseContext"
-
 import {useHistory} from 'react-router-dom';
 
-import {useContext, useState} from 'react';
+import {useState, useEffect} from 'react';
 import s from "./style.module.css"
 
 import PokemonCard from "../../../Components/PokemonCard"
 
 import {useSelector, useDispatch} from 'react-redux'
 import {selectedPokemons, getWin, clearSelectedPokemons} from '../../../store/pokemons'
-import {selectPl2Data} from '../../../store/player2Cards'
+import {selectPl2Data, postPokemon} from '../../../store/player2Cards'
 
 let cardTosave = []
 
@@ -19,10 +17,12 @@ const FinishPage = () => {
   const dispatch = useDispatch()
   const chosenPokemons = useSelector(selectedPokemons)
   const cardsPlayer2 = useSelector(selectPl2Data)
+  const [cdsPlayer2, setCdsPlayer2] = useState(
+    cardsPlayer2.map((item) => ({ ...item, selected: false }))
+  )
   const win = useSelector(getWin)
 
-  const firebase = useContext(FirebaseContext)
-  const [cdsPlayer2, setCdsPlayer2] = useState(cardsPlayer2)
+  //const firebase = useContext(FirebaseContext)
 
   const PokeClick = (id) => {
     const copyPlayer2Cards = [...cdsPlayer2]
@@ -39,8 +39,9 @@ const FinishPage = () => {
   const handleClickButton = () => {
     console.log(win);
     if (win && cardTosave.id != null) {
-      cardTosave["selected"] = false
-      firebase.addPokemon(cardTosave)
+      cardTosave.selected = false
+      console.log("cardTosave", cardTosave);
+      dispatch(postPokemon(cardTosave))
       dispatch(clearSelectedPokemons())
       history.push("/game")
     }
@@ -77,7 +78,7 @@ const FinishPage = () => {
     <h1>Карты противника</h1>
     <div className={s.flex}>
     {
-      cdsPlayer2.map(item => <PokemonCard
+      Object.values(cdsPlayer2).map(item => <PokemonCard
         className={s.card}
         key={item.id}
         name={item.name}

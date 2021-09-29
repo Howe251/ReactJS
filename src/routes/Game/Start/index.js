@@ -1,27 +1,24 @@
 import {useHistory} from 'react-router-dom';
 import PokemonCard from "../../../Components/PokemonCard"
-import {useState, useEffect, useContext} from 'react';
-
-import FirebaseContext from "../../../context/firebaseContext"
+import {useState, useEffect} from 'react';
 
 import s from "./style.module.css"
 
 import database from "../../../service/firebase"
 
 import {useDispatch, useSelector} from 'react-redux'
-import {selectedPokemons, getPokemonsAsync, selectPokemonsData, selectPokemonsLoading, setSelectedPokemons} from '../../../store/pokemons'
+import {selectedPokemons, getPokemonsAsync, selectPokemonsData, selectPokemonsLoading, setSelectedPokemons, clearSelectedPokemons} from '../../../store/pokemons'
 
 const StartPage = () => {
   const history = useHistory();
-  const firebase = useContext(FirebaseContext)
   const pokemonsRedux = useSelector(selectPokemonsData)
   const chosenPokemons = useSelector(selectedPokemons)
   const dispatch = useDispatch()
   const [pokeActive, setPokeActive] = useState({});
 
   const isLoading = useSelector(selectPokemonsLoading)
-  console.log(chosenPokemons);
   useEffect(() => {
+    dispatch(clearSelectedPokemons())
     dispatch(getPokemonsAsync())
   }, [])
 
