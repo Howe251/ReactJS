@@ -1,7 +1,9 @@
 import s from "../static/css/NavBar.module.css"
 import cn from "classnames";
 
+//import image from "../static/img/logo.png"
 import {ReactComponent as LoginSVG} from "../static/img/login.svg"
+import {ReactComponent as LogoSVG} from "../static/img/logo.svg"
 
 const NavBar = ({onClickMenu, isActive, bgActive, onClickLogin}) => {
   const clickHandler = () => {
@@ -11,7 +13,7 @@ const NavBar = ({onClickMenu, isActive, bgActive, onClickLogin}) => {
     <nav class={cn(s.root, {[s.bgActive]:bgActive})}>
       <div class={s.navWrapper}>
         <p class={s.brand}>
-          LOGO
+          <LogoSVG />
         </p>
         <div className={s.loginAndMenu}>
           <div
