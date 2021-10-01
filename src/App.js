@@ -9,8 +9,7 @@ import {useLocation, Route, Switch, Redirect} from 'react-router-dom';
 import cn from 'classnames';
 
 import s from "./App.module.css"
-import {FirebaseContext} from "./context/firebaseContext";
-import Firebase from "./service/firebase"
+import FirebaseClass from "./service/firebase"
 import {useState} from 'react';
 
 const App = () => {
@@ -23,7 +22,6 @@ const App = () => {
   }
 
   return(
-      <FirebaseContext.Provider value={new Firebase()}>
       <Switch>
         <Route path="/404" component={NotFound} />
         <Route>
@@ -45,7 +43,6 @@ const App = () => {
           </>
         </Route>
       </Switch>
-      </FirebaseContext.Provider >
   )
 }
 

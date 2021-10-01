@@ -6,4 +6,7 @@ import App from "./App.js";
 
 import './static/css/index.css'
 
-ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
+import {Provider} from 'react-redux'
+import store from './store'
+
+ReactDOM.render(<Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>, document.getElementById('root'));

@@ -1,20 +1,28 @@
-import FirebaseContext from "../../../context/firebaseContext"
-import PokemonContext from "../../../context/pokemonContext"
-
 import {useHistory} from 'react-router-dom';
 
-import {useContext, useState} from 'react';
+import {useState, useEffect} from 'react';
 import s from "./style.module.css"
 
 import PokemonCard from "../../../Components/PokemonCard"
+
+import {useSelector, useDispatch} from 'react-redux'
+import {selectedPokemons, getWin, clearSelectedPokemons} from '../../../store/pokemons'
+import {selectPl2Data, postPokemon} from '../../../store/player2Cards'
 
 let cardTosave = []
 
 const FinishPage = () => {
   const history = useHistory();
-  const {pokemon, cardsPlayer2, win, clearContext} = useContext(PokemonContext)
-  const firebase = useContext(FirebaseContext)
-  const [cdsPlayer2, setCdsPlayer2] = useState(cardsPlayer2)
+
+  const dispatch = useDispatch()
+  const chosenPokemons = useSelector(selectedPokemons)
+  const cardsPlayer2 = useSelector(selectPl2Data)
+  const [cdsPlayer2, setCdsPlayer2] = useState(
+    cardsPlayer2.map((item) => ({ ...item, selected: false }))
+  )
+  const win = useSelector(getWin)
+
+  //const firebase = useContext(FirebaseContext)
 
   const PokeClick = (id) => {
     const copyPlayer2Cards = [...cdsPlayer2]
@@ -31,9 +39,10 @@ const FinishPage = () => {
   const handleClickButton = () => {
     console.log(win);
     if (win && cardTosave.id != null) {
-      cardTosave["selected"] = false
-      firebase.addPokemon(cardTosave)
-      clearContext()
+      cardTosave.selected = false
+      console.log("cardTosave", cardTosave);
+      dispatch(postPokemon(cardTosave))
+      dispatch(clearSelectedPokemons())
       history.push("/game")
     }
     else if (win && cardTosave.id == null) {
@@ -41,21 +50,20 @@ const FinishPage = () => {
     }
     else if (!win) {
       alert("К сожалению Вы проиграли. Попробуйте еще раз")
-      clearContext()
+      dispatch(clearSelectedPokemons())
       history.push("/game")
     }
   }
-
-  if (cardsPlayer2.length === 0) {
+  console.log(cardsPlayer2.length);
+  if (!cardsPlayer2.length) {
     history.replace('/game')
   }
-  console.log("cdsPlayer22", cdsPlayer2);
   return (
     <>
     <h1>Твои карты</h1>
     <div className={s.flex}>
     {
-      Object.values(pokemon).map(item => <PokemonCard
+      Object.values(chosenPokemons).map(item => <PokemonCard
         key={item.id}
         name={item.name}
         values={item.values}
@@ -70,7 +78,7 @@ const FinishPage = () => {
     <h1>Карты противника</h1>
     <div className={s.flex}>
     {
-      cdsPlayer2.map(item => <PokemonCard
+      Object.values(cdsPlayer2).map(item => <PokemonCard
         className={s.card}
         key={item.id}
         name={item.name}
