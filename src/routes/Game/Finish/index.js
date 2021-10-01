@@ -22,8 +22,6 @@ const FinishPage = () => {
   )
   const win = useSelector(getWin)
 
-  //const firebase = useContext(FirebaseContext)
-
   const PokeClick = (id) => {
     const copyPlayer2Cards = [...cdsPlayer2]
     copyPlayer2Cards.forEach(item => {

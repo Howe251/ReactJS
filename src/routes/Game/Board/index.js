@@ -1,11 +1,13 @@
 import s from './style.module.css';
 import PokemonCard from "../../../Components/PokemonCard"
 import PlayerBoard from "./component/playerBoard"
+import Result from './component/Result'
+import ArrowChoice from './component/ArrowChoice'
 import {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom'
 
 import {useSelector, useDispatch} from 'react-redux'
-import {getPokemonsAsync, selectPokemonsData, selectPokemonsLoading, setTurn, selectedPokemons, getWin, setWin} from '../../../store/pokemons'
+import {getPokemonsAsync, selectPokemonsData, selectPokemonsLoading, setTurn, getTurn, selectedPokemons, getWin, setWin} from '../../../store/pokemons'
 import {addPL2Pokemons, selectPl2Data} from '../../../store/player2Cards'
 
 const countWin = (board, player1, player2) => {
@@ -26,6 +28,7 @@ const countWin = (board, player1, player2) => {
 const BoardPage = () => {
   const chosenPokemons = useSelector(selectedPokemons)
   const win = useSelector(getWin)
+  const turn = useSelector(getTurn)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -40,6 +43,7 @@ const BoardPage = () => {
       }))
   })
 
+  const [result, setResult] = useState(null)
   const [player2, setPlayer2] = useState([])
   const [chosenCard, setChosenCard] = useState(null)
   const [steps, setSteps] = useState(0)
@@ -109,14 +113,16 @@ const BoardPage = () => {
       console.log(count1);
       console.log(count2);
       if (count1 > count2) {
-        alert("ПОБЕДА")
+        setResult("win")
         dispatch(setWin(true))
       } else if (count1 < count2) {
+        setResult("lose")
         alert("ПРОИГРЫШ")
       } else {
+        setResult("draw")
         alert("НИЧЬЯ")
       }
-      history.replace('/game/finish')
+      setTimeout(() => {  history.replace('/game/finish') }, 2000);
     }
   }, [steps])
 
@@ -125,6 +131,8 @@ const BoardPage = () => {
   }
     return (
         <div className={s.root}>
+          <Result type={result} />
+          <ArrowChoice side={turn} />
 						<div className={s.playerOne}>
               <PlayerBoard
                 player={1}
