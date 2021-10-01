@@ -9,7 +9,7 @@ import {NotificationManager} from 'react-notifications';
 
 const MenuHeader = ({bgActive}) =>{
   const [isActive, setActive] = useState(null);
-  const [isOpenModal, setOpenModal] = useState(true);
+  const [isOpenModal, setOpenModal] = useState(false);
   const handleClick = (isActive) => {
     setActive(prevState => !prevState);
   }
@@ -19,21 +19,21 @@ const MenuHeader = ({bgActive}) =>{
 
   const handleSubmitLoginForm = async ({email, pass, login}) => {
     if (login) {
-    const requestOptions = {
-      method: "POST",
-      body: JSON.stringify({
-        email,
-        password: pass,
-        returnSecurityToken: true
-      })
-    }
-    const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA8jE0Z93s83gbTHSAbAsIDqO18VLTNFmM', requestOptions).then(res => res.json())
-    console.log(response);
-    if (response.hasOwnProperty('error')) {
-      NotificationManager.error(response.error.message, 'Ошибка!')
-    } else {
-      localStorage.setItem('idToken', response.idToken)
-      NotificationManager.success('Аккаунт создан')
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password: pass,
+          returnSecurityToken: true
+        })
+      }
+      const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA8jE0Z93s83gbTHSAbAsIDqO18VLTNFmM', requestOptions).then(res => res.json())
+      console.log(response);
+      if (response.hasOwnProperty('error')) {
+        NotificationManager.error(response.error.message, 'Ошибка!')
+      } else {
+        localStorage.setItem('idToken', response.idToken)
+        NotificationManager.success('Аккаунт создан')
     }
   }
   else {

@@ -35,10 +35,9 @@ const App = () => {
             <div className={cn(s.wrap, {[s.isHomePage]: isPadding})}>
               <Switch>
                 <Route path="/" exact component={HomePage} />
-                <Route path="/home" component={HomePage} />
                 <PrivateRoute path="/game" component={GamePage} />
                 <PrivateRoute path="/about" component={About}/>
-                <Route path="/contact" component={Contact}/>
+                <PrivateRoute path="/contact" component={Contact}/>
                 <Route render={() => (
                   <Redirect to="/404"/>
                 )}/>
