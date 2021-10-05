@@ -50,7 +50,8 @@ const BoardPage = () => {
   const history = useHistory();
 
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchData() {
     const boardResponse = await fetch("https://reactmarathon-api.netlify.app/api/board")
     const boardRequest = await boardResponse.json()
     setBoard(boardRequest.data)
@@ -63,6 +64,8 @@ const BoardPage = () => {
         possession: 'red',
       }))
     })
+  }
+  fetchData();
   }, [])
 
   console.log(board)
@@ -117,10 +120,8 @@ const BoardPage = () => {
         dispatch(setWin(true))
       } else if (count1 < count2) {
         setResult("lose")
-        alert("ПРОИГРЫШ")
       } else {
         setResult("draw")
-        alert("НИЧЬЯ")
       }
       setTimeout(() => {  history.replace('/game/finish') }, 2000);
     }

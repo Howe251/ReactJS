@@ -1,14 +1,19 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Input from "./Input"
 
 import s from '../static/css/LoginForm.module.css'
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, isResetFiled=false }) => {
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
   const [login, setLogin] = useState(false)
   const [title, setTitle] = useState('Register?')
   const [buttonTitle, setButtonTitle] = useState('SignIn')
+
+  useEffect(() => {
+    setEmail("")
+    setPass("")
+  },[isResetFiled])
 
   const handleRegisterClick = () => {
     setLogin(prevState => !prevState)
@@ -22,7 +27,7 @@ const LoginForm = ({ onSubmit }) => {
       onSubmit && onSubmit({
         email,
         pass,
-        login
+        type: login ? 'signUp' : 'login'
       })
       setEmail('');
       setPass('');

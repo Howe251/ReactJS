@@ -27,7 +27,6 @@ const GamePage = () => {
     }
 
     const getPlayer2Cards = (player2) => {
-      console.log("### pl2", player2);
       return setPlayer2Cards(prevState => prevState = [...player2])
     }
 

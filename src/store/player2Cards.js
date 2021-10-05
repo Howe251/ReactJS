@@ -15,9 +15,9 @@ export const slice = createSlice({
       ...state,
       data: {}
     }),
-    postPokemon: (state, action) => {
-      const data = action.payload
-      FirebaseClass.addPokemon(data);
+    postPokemon: (state, {payload:{cardTosave, localId}}) => {
+      console.log("##locID in store", localId);
+      FirebaseClass.addPokemon(cardTosave, localId);
     }
   }
 })
