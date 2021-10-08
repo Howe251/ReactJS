@@ -23,7 +23,6 @@ const FinishPage = () => {
   )
   const win = useSelector(getWin)
   const localId = useSelector(selectLocalID)
-  console.log("###localID", localId);
 
   const PokeClick = (id) => {
     const copyPlayer2Cards = [...cdsPlayer2]
@@ -38,10 +37,8 @@ const FinishPage = () => {
   }
 
   const handleClickButton = () => {
-    console.log(win);
     if (win && cardTosave.id != null) {
       cardTosave.selected = false
-      console.log("cardTosave", cardTosave);
       dispatch(postPokemon({cardTosave, localId}))
       dispatch(clearSelectedPokemons())
       history.push("/game")
@@ -55,7 +52,6 @@ const FinishPage = () => {
       history.push("/game")
     }
   }
-  console.log(cardsPlayer2.length);
   if (!cardsPlayer2.length) {
     history.replace('/game')
   }

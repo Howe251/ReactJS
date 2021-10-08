@@ -3,6 +3,8 @@ import NavBar from "./NavBar.js"
 import Modal from "../Modal"
 import LoginForm from './LoginForm.js'
 
+import request from '../service/request'
+
 import {useState} from 'react';
 import {useDispatch} from 'react-redux'
 import {getUser, getUserUpdate} from '../store/user'
@@ -47,8 +49,7 @@ const MenuHeader = ({bgActive}) =>{
       } else {
         localStorage.setItem('idToken', response.idToken)
         if (props.type === 'signUp') {
-          const pokemonsStart = await fetch('https://reactmarathon-api.herokuapp.com/api/pokemons/starter').then(res => res.json())
-          console.log("StarterPack", pokemonsStart);
+          const pokemonsStart = await request.getStarterKit()
           for (const item of pokemonsStart.data) {
             await fetch(`https://pokemon-game-7d576-default-rtdb.europe-west1.firebasedatabase.app/${response.localId}/pokemons.json?auth=${response.idToken}`, {
               method: 'POST',

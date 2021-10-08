@@ -25,7 +25,6 @@ const App = () => {
   const location = useLocation('/');
   const isPadding = location.pathname === '/' || location.pathname === '/game/board';
   const [theme, setTheme] = useState('light');
-  console.log("###isUserLoading", isUserLoading);
   const handlerChangeTheme = (val) => {
     setTheme(val)
   }

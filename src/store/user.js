@@ -43,7 +43,6 @@ export const getUserUpdate = () => async (dispatch) => {
       dispatch(removeUser())
     } else {
       dispatch(updateUser(response.users[0]))
-      console.log("### users", response.users[0]);
     }
   } else {
     dispatch(removeUser())

@@ -67,7 +67,6 @@ export const getPokemonsAsync = () => async (dispatch, getState) => {
   const localId = selectLocalID(getState());
   dispatch(fetchPokemons())
   const data = await fetch(`https://pokemon-game-7d576-default-rtdb.europe-west1.firebasedatabase.app/${localId}/pokemons.json`).then(res => res.json())
-  console.log("###data", data);
   dispatch(fetchPokemonsResolve(data))
 }
 

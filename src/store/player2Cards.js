@@ -16,7 +16,6 @@ export const slice = createSlice({
       data: {}
     }),
     postPokemon: (state, {payload:{cardTosave, localId}}) => {
-      console.log("##locID in store", localId);
       FirebaseClass.addPokemon(cardTosave, localId);
     }
   }

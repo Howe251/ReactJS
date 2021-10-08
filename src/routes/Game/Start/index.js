@@ -7,7 +7,7 @@ import s from "./style.module.css"
 import database from "../../../service/firebase"
 
 import {useDispatch, useSelector} from 'react-redux'
-import {selectedPokemons, getPokemonsAsync, selectPokemonsData, selectPokemonsLoading, setSelectedPokemons, clearSelectedPokemons} from '../../../store/pokemons'
+import {selectedPokemons, getPokemonsAsync, selectPokemonsData, selectPokemonsLoading, setSelectedPokemons, clearSelectedPokemons, setTurn} from '../../../store/pokemons'
 
 const StartPage = () => {
   const history = useHistory();
@@ -18,6 +18,7 @@ const StartPage = () => {
 
   const isLoading = useSelector(selectPokemonsLoading)
   useEffect(() => {
+    dispatch(setTurn(null))
     dispatch(clearSelectedPokemons())
     dispatch(getPokemonsAsync())
   }, [])
