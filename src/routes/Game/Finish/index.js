@@ -7,7 +7,7 @@ import PokemonCard from "../../../Components/PokemonCard"
 
 import {useSelector, useDispatch} from 'react-redux'
 import {selectLocalID} from '../../../store/user'
-import {selectedPokemons, getWin, clearSelectedPokemons} from '../../../store/pokemons'
+import {selectedPokemons, getWin, clearSelectedPokemons, setTurn} from '../../../store/pokemons'
 import {selectPl2Data, postPokemon} from '../../../store/player2Cards'
 
 let cardTosave = []
@@ -39,6 +39,7 @@ const FinishPage = () => {
   const handleClickButton = () => {
     if (win && cardTosave.id != null) {
       cardTosave.selected = false
+      dispatch(setTurn(null))
       dispatch(postPokemon({cardTosave, localId}))
       dispatch(clearSelectedPokemons())
       history.push("/game")

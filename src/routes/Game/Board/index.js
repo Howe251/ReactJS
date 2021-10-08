@@ -52,6 +52,41 @@ const BoardPage = () => {
   const [steps, setSteps] = useState(0)
   const [serverBoard, setServerBoard] = useState([0,0,0,0,0,0,0,0,0])
 
+  const movement = async (bb = false, params) => {
+    const game = await request.game(params)
+    if (bb) {
+      setBoard(returnBoard(game.oldBoard))
+    }
+    console.log("###game1", game);
+
+    if (game.move != null) {
+      const idAi = game.move.poke.id;
+
+      setTimeout(() => {
+        setPlayer2(prevState => prevState.map(item => {
+          if (item.id == idAi) {
+            return  {
+              ...item,
+              selected: true,
+            }
+          }
+          return item
+        }));
+      }, 1000)
+
+      setTimeout(() => {
+        setPlayer2(() => game.hands.p2.pokes.map(item => item.poke))
+        setServerBoard(game.board)
+        setBoard(returnBoard(game.board))
+        dispatch(setTurn(1))
+        setSteps(prevState => {
+          const count = prevState + 1
+          return count
+        })
+      }, 1500)
+    }
+  }
+
   useEffect( async () => {
     if (turn == 2 && steps == 0) {
       const params = {
@@ -63,36 +98,7 @@ const BoardPage = () => {
         move: null,
         board: serverBoard,
       }
-      const game = await request.game(params)
-      //setBoard(returnBoard(game.oldBoard))
-      console.log("###game1", game);
-
-      if (game.move != null) {
-        const idAi = game.move.poke.id;
-
-        setTimeout(() => {
-          setPlayer2(prevState => prevState.map(item => {
-            if (item.id == idAi) {
-              return  {
-                ...item,
-                selected: true,
-              }
-            }
-            return item
-          }));
-        }, 1000)
-
-        setTimeout(() => {
-          setPlayer2(() => game.hands.p2.pokes.map(item => item.poke))
-          setServerBoard(game.board)
-          setBoard(returnBoard(game.board))
-          dispatch(setTurn(1))
-          setSteps(prevState => {
-            const count = prevState + 1
-            return count
-          })
-        }, 1500)
-      }
+      movement(false, params)
     }
   }, [turn])
 
@@ -186,36 +192,7 @@ const BoardPage = () => {
 
         return item
       }))
-
-      const game = await request.game(params)
-      setBoard(returnBoard(game.oldBoard))
-
-      if (game.move != null) {
-        const idAi = game.move.poke.id;
-
-        setTimeout(() => {
-          setPlayer2(prevState => prevState.map(item => {
-            if (item.id == idAi) {
-              return  {
-                ...item,
-                selected: true,
-              }
-            }
-            return item
-          }));
-        }, 1000)
-
-        setTimeout(() => {
-          setPlayer2(() => game.hands.p2.pokes.map(item => item.poke))
-          setServerBoard(game.board)
-          setBoard(returnBoard(game.board))
-          dispatch(setTurn(1))
-          setSteps(prevState => {
-            const count = prevState + 1
-            return count
-          })
-        }, 1500)
-      }
+      movement(true,params)
     }
   }
 
