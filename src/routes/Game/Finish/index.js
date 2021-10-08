@@ -6,6 +6,7 @@ import s from "./style.module.css"
 import PokemonCard from "../../../Components/PokemonCard"
 
 import {useSelector, useDispatch} from 'react-redux'
+import {selectLocalID} from '../../../store/user'
 import {selectedPokemons, getWin, clearSelectedPokemons} from '../../../store/pokemons'
 import {selectPl2Data, postPokemon} from '../../../store/player2Cards'
 
@@ -21,6 +22,8 @@ const FinishPage = () => {
     cardsPlayer2.map((item) => ({ ...item, selected: false }))
   )
   const win = useSelector(getWin)
+  const localId = useSelector(selectLocalID)
+  console.log("###localID", localId);
 
   const PokeClick = (id) => {
     const copyPlayer2Cards = [...cdsPlayer2]
@@ -39,7 +42,7 @@ const FinishPage = () => {
     if (win && cardTosave.id != null) {
       cardTosave.selected = false
       console.log("cardTosave", cardTosave);
-      dispatch(postPokemon(cardTosave))
+      dispatch(postPokemon({cardTosave, localId}))
       dispatch(clearSelectedPokemons())
       history.push("/game")
     }

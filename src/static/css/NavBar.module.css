@@ -107,5 +107,17 @@
 }
 
 .loginWrap:hover svg g{
-  fill:#f300b4;
+    fill: #f300b4;
+}
+
+.brand svg {
+  position: fixed;
+  top: -25px;
+  left: 30px;
+  width: 150px;
+  height: 100px;
+}
+
+.brand svg g{
+  fill: white;
 }
