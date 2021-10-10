@@ -8,7 +8,6 @@ import {useSelector} from 'react-redux'
 
 const PlayerBoard = ({ player, cards, onClickCard }) => {
   const turn = useSelector(getTurn)
-  console.log(turn);
   const [selected, setSelected] = useState(null)
   return (
     <>
@@ -16,11 +15,11 @@ const PlayerBoard = ({ player, cards, onClickCard }) => {
       cards.map((item) => (
         <div
         className={cn(s.cardBoard, {
-          [s.selected]: selected === item.id
+          [s.selected]: item.selected
         })}
         onClick={() => {
           if (turn == player) {
-          setSelected(item.id);
+          //setSelected(item.id);
           onClickCard && onClickCard({
             player,
             ...item

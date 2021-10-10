@@ -15,7 +15,6 @@ const Modal = ({title, children, onCloseModal, isOpen}) => {
   }
 
   const handleClickRoot = (event) => {
-    //console.log("### click outside", modalEl.current.contains(event.target));
     if (!modalEl.current.contains(event.target)) {
       handleCloseModal()
     }
